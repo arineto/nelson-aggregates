@@ -1,0 +1,45 @@
+<!-- Zone Box Content -->
+
+<div class='box_content'>
+	<img class='my_logo2' src='{{ STATIC_URL }}img/nelson_logo.png'>
+	<h4 class='box_title'>Zone {{ polygon.title }}</h4>
+	{% for quarry in polygon.prices.all %}
+		<p>{{ quarry.get_quarry_display }}</p>
+		<ul>
+			{% if quarry.tri_axel %}
+				<li>Tri-axel: $ {{ quarry.tri_axel }}/ton</li>
+			{% endif %}
+			{% if quarry.tractor_trailer %}
+				<li>Tractor Trailer: $ {{ quarry.tractor_trailer }}/ton</li>
+			{% endif %}
+			{% if quarry.stone_slinger %}
+				<li>Stone Slinger: $ {{ quarry.stone_slinger }}/ton</li>
+			{% endif %}
+		</ul>
+	{% endfor %}
+	{% if user.is_authenticated %}
+		<table class='table my_table'>
+			<tr>
+				<td><a href='/add_quarry/{{ polygon.id }}'>Add Quarry</a></td>
+				<td><a href='/edit_map/{{ polygon.id }}'>Edit</a></td>
+				<td><a href='/delete_map/{{ polygon.id }}'>Delete</a></td>
+			</tr>
+		</table>
+	{% endif %}
+</div>
+
+
+<!-- Quarry Box Content -->
+<div class='box_content'>
+	<img class='my_logo2' src='{{ STATIC_URL }}img/nelson_logo.png'>
+	<h4 class='box_title'>{{ quarry.name }}</h4>
+	<p><b>Delivery Address:</b> {{ quarry.delivery_address }}</p>
+	<p><b>Mailing Address:</b> {{ quarry.mailing_address }}</p>
+	<p><b>Contact Information:</b></p>
+	<ul>
+		<li>Office: {{ quarry.office }}</li>
+		<li>Toll: {{ quarry.toll }}</li>
+		<li>Fax: {{ quarry.fax }}</li>
+		<li>Sales: {{ quarry.sales }}</li>
+	</ul>
+</div>

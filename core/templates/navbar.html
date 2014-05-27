@@ -1,0 +1,63 @@
+<div class="my_header">
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar-header hidden-sm">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="" href="/"><img class="my_logo" src="{{ STATIC_URL }}img/nelson_logo.png"></a>
+    </div>
+
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right" style="padding-right:15px;">
+        
+        <!-- Search Box -->
+        <li>
+          <div class="navbar-form navbar-input-group my_search" role="search">
+            <div class="form-group" style="margin-left: 15px;">
+              <input id="searchTextField" type="textbox" class="form-control" placeholder="Enter location">
+              <button onclick="codeAddress()" class="btn btn-primary">Search</button>
+            </div>
+          </div>
+        </li>
+        
+        <!-- Filters Box -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filters<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li>
+              {% for color, value in colors %}
+                <a href="/filter/{{ value }}/"><div style="background-color: {{ color }};" class="filter_color_box"></div></a>
+              {% endfor %}
+              <a href="/"><div class="filter_color_box">All</div></a>
+            </li>
+          </ul>
+        </li>
+
+        {% if not user.is_authenticated %}
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login<b class="caret"></b></a>
+              <ul class="dropdown-menu" style="padding:15px;">
+                <li>
+                  <form method="post" action="/login/" role="form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <input type="text" placeholder="Username" name="username" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" placeholder="Password" name="password" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-default">Sign in</button>
+                  </form>
+                </li>
+              </ul>
+          </li>
+        {% else %}
+          <li><a href="/logout/">Logout</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>

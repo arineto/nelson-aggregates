@@ -1,0 +1,127 @@
+html { 
+	height: 100% 
+}
+
+body { 
+	height: 100%; 
+	margin: 0; 
+	padding: 0 
+}
+
+.my_header{
+	display: block;
+	height:50px;
+}
+
+@media (min-width: 768px){
+	.my_search{
+		width: 500px !important;
+	}
+}
+
+@media (max-width: 768px){
+	.my_search div input{
+		vertical-align: middle !important;
+	}
+	.my_search div{
+		margin-bottom: 0 !important;
+	}
+}
+
+.my_search div{
+	width: 100%;
+	display: inline-block;
+	margin: 0 auto;
+	padding-right: 15px;
+}
+
+.my_search div input{
+	width: 80% !important;
+	display: inline-block !important;
+}
+
+.my_search div button{
+	width: 20% !important;
+}
+
+#map-canvas { 
+	display: block;
+	float:left;
+	width: 100%;
+	height: 95% 
+}
+
+.authenticated{
+	width:80% !important;
+}
+
+#draw_maps_box{
+	display: block;
+	float: left;
+	width: 20%;
+	height:95%;
+	margin-bottom: 0 !important;
+}
+
+.filter_color_box{
+	width: 20px;
+	height: 20px;
+	margin: 10px auto;
+	color:black;
+}
+
+#color{
+	padding:1px;
+}
+
+.pac-container{
+	z-index: 1100;
+}
+
+.navbar-input-group {
+  font-size: 0px; /*removes whitespace between button and input*/
+}
+
+.navbar-input-group input {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.navbar-input-group .btn {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-left: 0px;
+}
+
+#my_error{
+	text-align: center;
+	margin-bottom: 0;
+}
+
+.my_logo{
+	height: 50px;
+	margin-left: 10px;
+}
+
+.my_logo2{
+	display: block;
+	height: 50px;
+	margin: 0 auto;
+}
+
+.box_title{
+	text-align: center;
+}
+
+.box_content{
+	max-height: 450px;
+	overflow: auto;
+}
+
+.my_table{
+	margin-bottom: 0!important;
+}
+
+.form_error{
+	font-size: 14px !important;
+}

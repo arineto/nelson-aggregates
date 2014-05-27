@@ -1,0 +1,52 @@
+{% if add_quarry %}
+  <form id="draw_maps_box" class="jumbotron" method="POST" action="">
+    {% csrf_token %}
+    <h4>Adding Quarry - Zone {{ polygon.title }}</h4>
+    {% for field in form %}
+      <div class="form-group {% if field.errors %}has-error{% endif %}">
+        <label>{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <p class="text-danger form_error">{{ field.errors|join:", " }}</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <div class="form-group">
+      <input class="btn btn-default" type="submit" value="Submit">  
+    </div>
+    <div class="form-group">
+      <a class="btn btn-default" href="/">Back</a> 
+    </div>
+  </form>
+{% else %}
+  <div id="draw_maps_box" class="jumbotron">
+    {% if edit %}
+      <h3>Editing Zone {{ polygon.title }}</h3>
+    {% else %}
+      <h3>Draw Maps</h3>
+    {% endif %}
+      <div class="form-group">
+        <label >Zone Title</label>
+        <input type="text" class="form-control" id="title" value="{{ polygon.title }}">
+      </div>
+      <div class="form-group">
+        <label >Color</label>
+        <input type="color" class="form-control" id="color" value="{{ polygon.color }}">
+      </div>
+      {% if edit %}
+      <div class="form-group">
+        <button class="btn btn-default" onclick="end_drawing()">Save</button>
+      </div>
+      <div class="form-group">
+        <a class="btn btn-default" href="/">Discard</a>
+      </div>
+      {% else %}
+      <div class="form-group">
+        <button class="btn btn-default" onclick="start_drawing()" id="start_drawing">Start Drawing</button>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default" onclick="end_drawing()" id="end_drawing">End Drawing</button>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

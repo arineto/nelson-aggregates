@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Maps Test</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/home.css">
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
+  
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClqmnPFZDxh_XIktPvuNQuo8F7mQ86ORc&sensor=FALSE"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+  
+  {% if user.is_authenticated and not add_quarry %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/drawing_maps.js"></script>
+  {% endif %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/creating_polygons.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/search_box.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/map.js"></script>
+
+  <script type="text/javascript">
+    $( document ).ready(function() {
+      {% if error %}
+        $(".alert").alert();
+      {% endif %}
+
+      setSizes();
+
+      $(window).resize(function(){
+          setSizes();
+      });
+    });
+
+    function setSizes(){
+      var height = window.innerHeight || document.body.clientHeight;
+        height -= 50;
+        $( "#map-canvas" ).css("height", height.toString());
+        {% if user.is_authenticated %}
+          $( "#draw_maps_box" ).css("height", height.toString());
+        {% endif %}
+    }
+
+    function generate_polygons(){
+      // GENERATING THE STORED POLYGONS
+      {% for polygon in polygons %}
+        var polygon_id = "{{ polygon.id }}";
+        var polygon_points = "{{ polygon.points }}".split(", ");
+        var polygon_color = "{{ polygon.color }}";
+        var polygon_content = "<div class='box_content'> <img class='my_logo2' src='{{ STATIC_URL }}img/nelson_logo.png'> <h4 class='box_title'>Zone {{ polygon.title }}</h4> {% for quarry in polygon.prices.all %} <p>{{ quarry.get_quarry_display }}</p> <ul> {% if quarry.tri_axel %} <li>Tri-axel: $ {{ quarry.tri_axel }}/ton</li> {% endif %} {% if quarry.tractor_trailer %} <li>Tractor Trailer: $ {{ quarry.tractor_trailer }}/ton</li> {% endif %} {% if quarry.stone_slinger %} <li>Stone Slinger: $ {{ quarry.stone_slinger }}/ton</li> {% endif %} </ul> {% endfor %} {% if user.is_authenticated %} <table class='table my_table'> <tr> <td><a href='/add_quarry/{{ polygon.id }}'>Add Quarry</a></td> <td><a href='/edit_map/{{ polygon.id }}'>Edit</a></td> <td><a href='/delete_map/{{ polygon.id }}'>Delete</a></td> </tr> </table> {% endif %} </div>";
+        var polygon_path = [];
+
+        for(i=0; i<polygon_points.length-1; i=i+2){
+          var coordenate1 = polygon_points[i].substring(1);
+          var coordenate2 = polygon_points[i+1].substring(0, polygon_points[i+1].length-1);
+          var latlng = new google.maps.LatLng(coordenate1, coordenate2);
+          polygon_path.push(latlng);
+        }
+
+        // EDITING MAPS
+        {% if edit and user.is_authenticated %}
+          if("{{ edit }}" == polygon_id){
+            polygon = new_polygon(map, polygon_path, polygon_color, polygon_content, true, true);
+          }else{
+            var not_edit_polygon = new_polygon(map, polygon_path, polygon_color, polygon_content, false, false);
+          }
+        {% else %}
+          polygon = new_polygon(map, polygon_path, polygon_color, polygon_content, false, false);
+        {% endif %}
+      {% endfor %}
+    }
+
+    function mark_quarries(){
+      var quarry_window = null;
+      {% for quarry in quarries %}
+        content = "<div class='box_content'> <img class='my_logo2' src='{{ STATIC_URL }}img/nelson_logo.png'> <h4 class='box_title'>{{ quarry.name }}</h4> <p><b>Delivery Address:</b> {{ quarry.delivery_address }}</p> <p><b>Mailing Address:</b> {{ quarry.mailing_address }}</p> <p><b>Contact Information:</b></p> <ul> <li>Office: {{ quarry.office }}</li> <li>Toll: {{ quarry.toll }}</li> <li>Fax: {{ quarry.fax }}</li> <li>Sales: {{ quarry.sales }}</li> </ul> </div>";
+        create_marker("{{ quarry.name }}", "{{ quarry.latitude }}", "{{ quarry.longitude }}", content);
+      {% endfor %}
+    }
+
+  </script>
+
+  <script type="text/javascript">
+    var map;
+    var polygon = null;
+
+    function initialize() {
+      {% if not edit and user.is_authenticated and not add_quarry %}
+        document.getElementById("end_drawing").disabled = true;
+      {% endif %}
+
+      geocoder = new google.maps.Geocoder();
+      var input = document.getElementById('searchTextField');
+      var autocomplete = new google.maps.places.Autocomplete(input);
+      
+      map = init_map(map);
+      mark_quarries();
+      generate_polygons();
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+</head>
+
+<body>
+  <form method="POST", action="/save_map/{% if edit %}{{ edit }}/{% endif %}" name="new_map_form">
+    {% csrf_token %}
+    <input type="hidden" name="points">
+    <input type="hidden" name="color" id="id_color">
+    <input type="hidden" name="title">
+  </form>
+
+  {% include 'navbar.html' %}
+
+  {% if error %}
+    <div id="my_error" class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <p>{{ error }}</p>
+    </div>
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    {% include 'forms.html' %}
+  {% endif %}
+
+  <div id="map-canvas" class="{% if user.is_authenticated %}authenticated{% endif %}"/>  
+</body>
+</html>

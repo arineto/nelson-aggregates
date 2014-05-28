@@ -2,11 +2,12 @@ from django.db import models
 
 
 QUARRY_NAMES = (
-		(1, 'Nelson Aggregate'),
+		(1, 'Burlington Quarry'),
 		(2, 'Waynco Aggregate'),
 		(3, 'Uhthoff Quarry'),
 		(4, 'Oneida Quarry'),
 		(5, 'Lincoln Quarry'),
+		(6, 'Lafarge'),
 	)
 
 

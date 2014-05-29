@@ -25,6 +25,9 @@ class Polygon(models.Model):
 	prices = models.ManyToManyField('Price', null=True, blank=True)
 	date = models.DateTimeField(auto_now=True)
 
+	def __unicode__(self):
+		return self.title
+
 
 class Quarry(models.Model):
 	name = models.CharField(max_length=100)
@@ -36,3 +39,6 @@ class Quarry(models.Model):
 	sales = models.CharField(max_length=50)
 	latitude = models.CharField(max_length=50)
 	longitude = models.CharField(max_length=50)
+
+	def __unicode__(self):
+		return self.name

@@ -37,14 +37,14 @@ function mark_polygon(polygon){
     polygon.setOptions({fillOpacity:0.3});
 }
 
-function create_marker(name, latitude, longitude, content){
+function create_marker(name, icon, latitude, longitude, content){
   var quarry_marker = null;
  
   quarry_marker = new google.maps.Marker({
     position: new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude)),
     map: map,
     title: name,
-    icon: "{{ STATIC_URL }}img/icons/"+name+".png"
+    icon: icon
   });
 
   google.maps.event.addListener(quarry_marker, 'click', function () {

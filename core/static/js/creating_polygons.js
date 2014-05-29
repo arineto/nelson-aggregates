@@ -1,5 +1,6 @@
 var info_window = null;
 var last_polygon = null;
+var quarry_window = null;
 
 function new_polygon(map, path, color, content, editable, draggable){
 
@@ -48,6 +49,9 @@ function create_marker(name, icon, latitude, longitude, content){
   });
 
   google.maps.event.addListener(quarry_marker, 'click', function () {
+    if(quarry_window){
+      quarry_window.setMap(null);
+    }
     quarry_window = new google.maps.InfoWindow({
       content: content
     })

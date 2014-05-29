@@ -125,3 +125,8 @@ body {
 .form_error{
 	font-size: 14px !important;
 }
+
+#filters_drop{
+	max-height: 50%;
+	overflow: auto;
+}

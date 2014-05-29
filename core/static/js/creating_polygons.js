@@ -44,7 +44,7 @@ function create_marker(name, latitude, longitude, content){
     position: new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude)),
     map: map,
     title: name,
-    icon: "{{ STATIC_URL }}img/"+name+"_logo.png"
+    icon: "{{ STATIC_URL }}img/icons/"+name+".png"
   });
 
   google.maps.event.addListener(quarry_marker, 'click', function () {

@@ -28,6 +28,12 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filters<b class="caret"></b></a>
           <ul class="dropdown-menu" id="filters_drop">
             <li>
+              <a href="/">
+                <div class="filter_line">
+                  <span class="filter_color_box"></span>
+                  <span>All</span>
+                </div>
+              </a>
               {% for location, color in filters.items %}
                 <a href="/filter/{{ location }}/">
                   <div class="filter_line">
@@ -36,13 +42,6 @@
                   </div>
                 </a>
               {% endfor %}
-              
-              <a href="/">
-                <div class="filter_line">
-                  <span class="filter_color_box"></span>
-                  <span>All</span>
-                </div>
-              </a>
             </li>
           </ul>
         </li>

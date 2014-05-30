@@ -1,0 +1,23 @@
+body{
+	background-color: #242424 !important;
+}
+
+.login_box{
+	width:500px;
+	height:300px;
+	margin: 200px auto;
+	background-color: #EEE;
+	padding:20px 30px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	border-radius: 10px 10px 10px 10px;
+	opacity:0.9;
+}
+
+.logo{
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.right{
+	float: right;
+}

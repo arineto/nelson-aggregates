@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
 from core.forms import *
@@ -7,6 +7,9 @@ from core.models import *
 # Create your views here.
 
 def home(request, color=None):
+	if not request.user.is_authenticated():
+		return redirect('/login/')
+
 	polygons = Polygon.objects.all()
 
 	colors = []
@@ -100,9 +103,11 @@ def login_aux(request):
 	    if user is not None:
 	      if user.is_active:
 	        login(request, user)
+	        return redirect('/')
 	    else:
 	    	request.session['error'] = "Invalid username/password"
-	return redirect('/')
+
+	return render(request, 'login.html', {})
 
 
 def logout_aux(request):

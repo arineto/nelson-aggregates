@@ -4,7 +4,7 @@
 	<img class='my_logo2' src='{{ STATIC_URL }}img/nelson_logo.png'>
 	<h4 class='box_title'>Zone {{ polygon.title }}</h4>
 	{% for quarry in polygon.prices.all %}
-		<p>{{ quarry.get_quarry_display }}</p>
+		<p>{{ quarry.get_quarry_display }}{% if user.is_superuser %} (<a href='/edit_quarry/{{ quarry.id }}/'>Edit</a> | <a href='/remove_quarry/{{ quarry.id }}/'>Remove</a>){% endif %}</p>
 		<ul>
 			{% if quarry.tri_axel %}
 				<li>Tri-axel: $ {{ quarry.tri_axel }}/ton</li>

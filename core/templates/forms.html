@@ -1,7 +1,11 @@
-{% if add_quarry %}
+{% if add_quarry or edit_quarry %}
   <form id="draw_maps_box" class="jumbotron" method="POST" action="">
     {% csrf_token %}
-    <h4>Adding Quarry - Zone {{ polygon.title }}</h4>
+    {% if edit_quarry %}
+      <h4>Editing Quarry - Zone {{ polygon.title }}</h4>
+    {% else %}
+      <h4>Adding Quarry - Zone {{ polygon.title }}</h4>
+    {% endif %}
     {% for field in form %}
       <div class="form-group {% if field.errors %}has-error{% endif %}">
         <label>{{ field.label }}</label>

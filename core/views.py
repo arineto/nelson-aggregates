@@ -106,6 +106,40 @@ def add_quarry(request, map_id):
 	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'quarries':quarries, 'add_quarry':map_id, 'polygon':polygon, 'form':form})
 
 
+@login_required
+def edit_quarry(request, quarry_id):
+	if not request.user.is_superuser:
+		return redirect('/')
+
+	instance = Price.objects.get(id=quarry_id)
+	if request.method == 'POST':
+		form = QuarryForm(request.POST, instance=instance)
+		if form.is_valid():
+			form.save()
+			return redirect('/')
+	else:
+		form = QuarryForm(instance=instance)
+
+	polygons = Polygon.objects.all()
+	colors = []
+	for polygon in polygons:
+		if not (polygon.color,polygon.color[1:]) in colors:
+			colors+=[(polygon.color,polygon.color[1:])]
+
+	polygon = Polygon.objects.filter(prices=instance)[0]
+	quarries = Quarry.objects.all()
+
+	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'quarries':quarries, 'edit_quarry':polygon.id, 'polygon':polygon, 'form':form})
+
+
+@login_required
+def remove_quarry(request, quarry_id):
+	if not request.user.is_superuser:
+		return redirect('/')
+
+	Price.objects.get(id=quarry_id).delete()
+	return redirect('/')
+
 
 def login_aux(request):
 	error = None

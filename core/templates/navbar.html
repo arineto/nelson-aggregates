@@ -29,9 +29,20 @@
           <ul class="dropdown-menu" id="filters_drop">
             <li>
               {% for location, color in filters.items %}
-                <a href="/filter/{{ location }}/">{{ location }}</a>
+                <a href="/filter/{{ location }}/">
+                  <div class="filter_line">
+                    <span style="background-color: #{{ color }};" class="filter_color_box"></span>
+                    <span>{{ location }}</span>
+                  </div>
+                </a>
               {% endfor %}
-              <a href="/">All</a>
+              
+              <a href="/">
+                <div class="filter_line">
+                  <span class="filter_color_box"></span>
+                  <span>All</span>
+                </div>
+              </a>
             </li>
           </ul>
         </li>

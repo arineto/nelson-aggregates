@@ -4,21 +4,42 @@ from django.contrib.auth import logout, login, authenticate
 from core.forms import *
 from core.models import *
 
-# Create your views here.
 
-def home(request, color=None):
+FILTER_VALUES = {
+	"Ancaster":"011993",
+	"Lincoln":"009051",
+	"Halton Hills":"00fa92",
+	"Burlington":"0096ff",
+	"Mississauga":"942193",
+	"Hamilton":"ff7e79",
+	"Waterdown":"fffb00",
+	"Oneida":"929000",
+	"Waterloo / Cambridge":"941100",
+	"Maple & Aurora":"941751",
+	"Caledon":"d783ff",
+	"Brampton":"945200",
+	"Rockwood":"76d6ff",
+	"Orangeville West":"ff2600",
+	"Oakville / Milton":"ff9300",
+	"Etobicoke / Rexdale":"ff2f92",
+	"Vaughan / King City":"0433ff",
+	"New Tecumseth / Stayner":"009193",
+	"Toronto / North York":"008f00",
+	"Bradford / Innisfil":"4f8f00",
+	"Barrie / Elmvale":"000000",
+	"Midland":"797979",
+	"Orillia":"7a81ff"
+}
+
+
+def home(request, filter_value=None):
 	if not request.user.is_authenticated():
 		return redirect('/login/')
 
 	polygons = Polygon.objects.all()
-
-	colors = []
-	for polygon in polygons:
-		if not (polygon.color,polygon.color[1:]) in colors:
-			colors+=[(polygon.color,polygon.color[1:])]
 	
-	if color is not None:
-		polygons = Polygon.objects.filter(color__icontains=color)
+	if filter_value is not None:
+		polygons = Polygon.objects.filter(color__icontains=FILTER_VALUES[filter_value])
 
 	try:
 		if request.session['error']:
@@ -30,7 +51,7 @@ def home(request, color=None):
 		error = ""
 
 	quarries = Quarry.objects.all()
-	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'quarries':quarries,'error':error})
+	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'error':error})
 
 
 @login_required
@@ -68,15 +89,9 @@ def edit_map(request, map_id):
 		return redirect('/')
 
 	polygons = Polygon.objects.all()
-	colors = []
-	for polygon in polygons:
-		if not (polygon.color,polygon.color[1:]) in colors:
-			colors+=[(polygon.color,polygon.color[1:])]
-
 	polygon = Polygon.objects.get(id=map_id)
-
 	quarries = Quarry.objects.all()
-	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'quarries':quarries, 'edit':map_id, 'polygon':polygon})
+	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'edit':map_id, 'polygon':polygon})
 
 
 @login_required
@@ -85,12 +100,8 @@ def add_quarry(request, map_id):
 		return redirect('/')
 
 	polygons = Polygon.objects.all()
-	colors = []
-	for polygon in polygons:
-		if not (polygon.color,polygon.color[1:]) in colors:
-			colors+=[(polygon.color,polygon.color[1:])]
-
 	polygon = Polygon.objects.get(id=map_id)
+	quarries = Quarry.objects.all()
 
 	if request.method == 'POST':
 		form = QuarryForm(request.POST)
@@ -102,8 +113,7 @@ def add_quarry(request, map_id):
 	else:
 		form = QuarryForm()
 
-	quarries = Quarry.objects.all()
-	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'quarries':quarries, 'add_quarry':map_id, 'polygon':polygon, 'form':form})
+	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'add_quarry':map_id, 'polygon':polygon, 'form':form})
 
 
 @login_required
@@ -121,15 +131,9 @@ def edit_quarry(request, quarry_id):
 		form = QuarryForm(instance=instance)
 
 	polygons = Polygon.objects.all()
-	colors = []
-	for polygon in polygons:
-		if not (polygon.color,polygon.color[1:]) in colors:
-			colors+=[(polygon.color,polygon.color[1:])]
-
 	polygon = Polygon.objects.filter(prices=instance)[0]
 	quarries = Quarry.objects.all()
-
-	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'quarries':quarries, 'edit_quarry':polygon.id, 'polygon':polygon, 'form':form})
+	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'edit_quarry':polygon.id, 'polygon':polygon, 'form':form})
 
 
 @login_required

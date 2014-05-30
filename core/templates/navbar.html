@@ -28,10 +28,10 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filters<b class="caret"></b></a>
           <ul class="dropdown-menu" id="filters_drop">
             <li>
-              {% for color, value in colors %}
-                <a href="/filter/{{ value }}/"><div style="background-color: {{ color }};" class="filter_color_box"></div></a>
+              {% for location, color in filters.items %}
+                <a href="/filter/{{ location }}/">{{ location }}</a>
               {% endfor %}
-              <a href="/"><div class="filter_color_box">All</div></a>
+              <a href="/">All</a>
             </li>
           </ul>
         </li>

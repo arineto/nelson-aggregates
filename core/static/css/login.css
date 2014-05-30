@@ -28,3 +28,10 @@ body{
 .right{
 	float: right;
 }
+
+@media (max-width: 500px){
+	.login_box{
+		width: 300px;
+		margin: 100px auto
+	}
+}

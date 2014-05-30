@@ -108,6 +108,7 @@ def add_quarry(request, map_id):
 
 
 def login_aux(request):
+	error = None
 	if request.method == "POST":
 	    username = request.POST['username']
 	    password = request.POST['password']
@@ -116,10 +117,12 @@ def login_aux(request):
 	      if user.is_active:
 	        login(request, user)
 	        return redirect('/')
+	      else:
+	      	error = "Not active user"
 	    else:
-	    	request.session['error'] = "Invalid username/password"
+	    	error = "Invalid username/password"
 
-	return render(request, 'login.html', {})
+	return render(request, 'login.html', {'error':error})
 
 
 def logout_aux(request):

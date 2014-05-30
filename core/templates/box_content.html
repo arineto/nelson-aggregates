@@ -17,7 +17,7 @@
 			{% endif %}
 		</ul>
 	{% endfor %}
-	{% if user.is_authenticated %}
+	{% if user.is_superuser %}
 		<table class='table my_table'>
 			<tr>
 				<td><a href='/add_quarry/{{ polygon.id }}'>Add Quarry</a></td>

@@ -35,6 +35,9 @@ def home(request, color=None):
 
 @login_required
 def save_map(request, map_id=None):
+	if not request.user.is_superuser:
+		return redirect('/')
+
 	if request.method == 'POST':
 		if map_id:
 			instance = Polygon.objects.get(id=map_id)
@@ -52,12 +55,18 @@ def save_map(request, map_id=None):
 
 @login_required
 def delete_map(request, map_id):
+	if not request.user.is_superuser:
+		return redirect('/')
+
 	Polygon.objects.get(id=map_id).delete()
 	return redirect('/')
 
 
 @login_required
 def edit_map(request, map_id):
+	if not request.user.is_superuser:
+		return redirect('/')
+
 	polygons = Polygon.objects.all()
 	colors = []
 	for polygon in polygons:
@@ -72,6 +81,9 @@ def edit_map(request, map_id):
 
 @login_required
 def add_quarry(request, map_id):
+	if not request.user.is_superuser:
+		return redirect('/')
+
 	polygons = Polygon.objects.all()
 	colors = []
 	for polygon in polygons:

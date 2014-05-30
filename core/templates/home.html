@@ -13,7 +13,7 @@
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
   
-  {% if user.is_authenticated and not add_quarry %}
+  {% if user.is_superuser and not add_quarry %}
     <script type="text/javascript" src="{{ STATIC_URL }}js/drawing_maps.js"></script>
   {% endif %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/creating_polygons.js"></script>
@@ -37,7 +37,7 @@
       var height = window.innerHeight || document.body.clientHeight;
         height -= 50;
         $( "#map-canvas" ).css("height", height.toString());
-        {% if user.is_authenticated %}
+        {% if user.is_superuser %}
           $( "#draw_maps_box" ).css("height", height.toString());
         {% endif %}
     }
@@ -48,7 +48,7 @@
         var polygon_id = "{{ polygon.id }}";
         var polygon_points = "{{ polygon.points }}".split(", ");
         var polygon_color = "{{ polygon.color }}";
-        var polygon_content = "<div class='box_content'> <img class='my_logo2' src='{{ STATIC_URL }}img/nelson_logo.png'> <h4 class='box_title'>Zone {{ polygon.title }}</h4> {% for quarry in polygon.prices.all %} <p>{{ quarry.get_quarry_display }}</p> <ul> {% if quarry.tri_axel %} <li>Tri-axel: $ {{ quarry.tri_axel }}/ton</li> {% endif %} {% if quarry.tractor_trailer %} <li>Tractor Trailer: $ {{ quarry.tractor_trailer }}/ton</li> {% endif %} {% if quarry.stone_slinger %} <li>Stone Slinger: $ {{ quarry.stone_slinger }}/ton</li> {% endif %} </ul> {% endfor %} {% if user.is_authenticated %} <table class='table my_table'> <tr> <td><a href='/add_quarry/{{ polygon.id }}'>Add Quarry</a></td> <td><a href='/edit_map/{{ polygon.id }}'>Edit</a></td> <td><a href='/delete_map/{{ polygon.id }}'>Delete</a></td> </tr> </table> {% endif %} </div>";
+        var polygon_content = "<div class='box_content'> <img class='my_logo2' src='{{ STATIC_URL }}img/nelson_logo.png'> <h4 class='box_title'>Zone {{ polygon.title }}</h4> {% for quarry in polygon.prices.all %} <p>{{ quarry.get_quarry_display }}</p> <ul> {% if quarry.tri_axel %} <li>Tri-axel: $ {{ quarry.tri_axel }}/ton</li> {% endif %} {% if quarry.tractor_trailer %} <li>Tractor Trailer: $ {{ quarry.tractor_trailer }}/ton</li> {% endif %} {% if quarry.stone_slinger %} <li>Stone Slinger: $ {{ quarry.stone_slinger }}/ton</li> {% endif %} </ul> {% endfor %} {% if user.is_superuser %} <table class='table my_table'> <tr> <td><a href='/add_quarry/{{ polygon.id }}'>Add Quarry</a></td> <td><a href='/edit_map/{{ polygon.id }}'>Edit</a></td> <td><a href='/delete_map/{{ polygon.id }}'>Delete</a></td> </tr> </table> {% endif %} </div>";
         var polygon_path = [];
 
         for(i=0; i<polygon_points.length-1; i=i+2){
@@ -59,7 +59,7 @@
         }
 
         // EDITING MAPS
-        {% if edit and user.is_authenticated %}
+        {% if edit and user.is_superuser %}
           if("{{ edit }}" == polygon_id){
             polygon = new_polygon(map, polygon_path, polygon_color, polygon_content, true, true);
           }else{
@@ -87,7 +87,7 @@
     var polygon = null;
 
     function initialize() {
-      {% if not edit and user.is_authenticated and not add_quarry %}
+      {% if not edit and user.is_superuser and not add_quarry %}
         document.getElementById("end_drawing").disabled = true;
       {% endif %}
 
@@ -120,10 +120,10 @@
     </div>
   {% endif %}
 
-  {% if user.is_authenticated %}
+  {% if user.is_superuser %}
     {% include 'forms.html' %}
   {% endif %}
 
-  <div id="map-canvas" class="{% if user.is_authenticated %}authenticated{% endif %}"/>  
+  <div id="map-canvas" class="{% if user.is_superuser %}authenticated{% endif %}"/>  
 </body>
 </html>

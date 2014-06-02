@@ -5,3 +5,4 @@ from core.models import *
 admin.site.register(Polygon)
 admin.site.register(Price)
 admin.site.register(Quarry)
+admin.site.register(AccessInfo)

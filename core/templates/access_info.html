@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nelson Aggregates - Zoning</title>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/home.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
+	<link rel="icon" type="image/png" href="{{ STATIC_URL }}img/nelson_logo.png">
+
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+</head>
+<body>
+	{% include 'navbar.html' %}
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Username</th>
+				<th>Date</th>
+				<th>Time</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in info %}
+				<tr>
+					<td>{{ row.id }}</td>
+					<td>{{ row.user.username }}</td>
+					<td>{{ row.date|date:"M d, Y" }}</td>
+					<td>{{ row.date|date:"P" }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</body>
+</html>

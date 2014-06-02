@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 QUARRY_NAMES = (
@@ -42,3 +43,11 @@ class Quarry(models.Model):
 
 	def __unicode__(self):
 		return self.name
+
+
+class AccessInfo(models.Model):
+	user = models.ForeignKey(User)
+	date = models.DateTimeField(auto_now=True)
+
+	def __unicode__(self):
+		return self.user.username

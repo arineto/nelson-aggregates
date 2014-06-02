@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.models import User
 from core.forms import *
 from core.models import *
 
@@ -154,6 +155,7 @@ def login_aux(request):
 	    if user is not None:
 	      if user.is_active:
 	        login(request, user)
+	        AccessInfo.objects.create(user=user)
 	        return redirect('/')
 	      else:
 	      	error = "Not active user"
@@ -166,5 +168,21 @@ def login_aux(request):
 def logout_aux(request):
 	logout(request)
 	return redirect('/')
+
+
+@login_required
+def access_info(request, username=None):
+	if not request.user.is_superuser:
+		return redirect('/')
+
+	if username:
+		info = AccessInfo.objects.filter(user=User.objects.get(username=username)).order_by('-date')
+	else:
+		info = AccessInfo.objects.all().order_by('-date')
+
+	users = User.objects.all()
+	return render(request, 'access_info.html', {'info':info, 'users':users})
+
+
 
 

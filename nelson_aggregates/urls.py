@@ -16,6 +16,6 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'core.views.logout_aux', name='logout_aux'),
     url(r'^login/$', 'core.views.login_aux', name='login_aux'),
     url(r'^access_info/$', 'core.views.access_info', name='access_info'),
-    url(r'^access_info/(?P<username>\w+)/$', 'core.views.access_info', name='access_info'),
+    url(r'^access_info/(?P<username>.+)/$', 'core.views.access_info', name='access_info'),
     url(r'^admin/', include(admin.site.urls)),
 )

@@ -26,7 +26,7 @@
         
         <!-- Filters Box -->
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Areas Filter<b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Areas<b class="caret"></b></a>
           <ul class="dropdown-menu" id="filters_drop">
             <li>
               <a href="/">
@@ -48,7 +48,7 @@
         </li>
         {% else %}
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users Filters<b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
           <ul class="dropdown-menu" id="filters_drop">
             <li>
               <a href="/access_info/">All</a>
@@ -66,19 +66,44 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Price List<b class="caret"></b></a>
           <ul class="dropdown-menu" id="filters_drop">
             <li>
-              <a href="{{ STATIC_URL }}pdf/test.pdf" target="_blank">Waynco</a>
+              <a href="{{ STATIC_URL }}pdf/test.pdf" target="_blank">
+                <div class="filter_line">
+                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Waynco Limited.png"></span>
+                  <span>Waynco Limited</span>
+                </div>
+              </a>
             </li>
             <li>
-              <a href="{{ STATIC_URL }}pdf/test.pdf" target="_blank">Oneida</a>
+              <a href="{{ STATIC_URL }}pdf/test.pdf" target="_blank">
+                <div class="filter_line">
+                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Oneida Quarry.png"></span>
+                  <span>Oneida Quarry</span>
+                </div>
+              </a>
             </li>
             <li>
-              <a href="{{ STATIC_URL }}pdf/test.pdf" target="_blank">Uhthoff</a>
+              <a href="{{ STATIC_URL }}pdf/test.pdf" target="_blank">
+                <div class="filter_line">
+                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Uhthoff Quarry.png"></span>
+                  <span>Uhthoff Quarry</span>
+                </div>
+              </a>
             </li>
             <li>
-              <a href="{{ STATIC_URL }}pdf/test.pdf" target="_blank">Lincoln</a>
+              <a href="{{ STATIC_URL }}pdf/test.pdf" target="_blank">
+                <div class="filter_line">
+                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Lincoln Quarry.png"></span>
+                  <span>Lincoln Quarry</span>
+                </div>
+              </a>
             </li>
             <li>
-              <a href="{{ STATIC_URL }}pdf/test.pdf" target="_blank">Burlington</a>
+              <a href="{{ STATIC_URL }}pdf/test.pdf" target="_blank">
+                <div class="filter_line">
+                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Burlington Quarry.png"></span>
+                  <span>Burlington Quarry</span>
+                </div>
+              </a>
             </li>
           </ul>
         </li>

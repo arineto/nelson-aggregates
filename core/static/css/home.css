@@ -142,3 +142,7 @@ body {
 	max-height: 500px;
 	overflow: auto;
 }
+
+.filter_color_box img{
+	height: 20px;
+}

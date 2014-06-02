@@ -181,7 +181,7 @@ def access_info(request, username=None):
 		info = AccessInfo.objects.all().order_by('-date')
 
 	users = User.objects.all()
-	return render(request, 'access_info.html', {'info':info, 'users':users})
+	return render(request, 'access_info.html', {'access_info':True,'info':info, 'users':users})
 
 
 

@@ -18,6 +18,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+ADMINS = (
+        ('Jose Neto', 'arineto30@gmail.com')
+    )
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -86,6 +89,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'arineto30@gmail.com'
+EMAIL_HOST_PASSWORD = 'ari040192'
+EMAIL_PORT = 587
 
 
 import dj_database_url

@@ -17,5 +17,6 @@ urlpatterns = patterns('',
     url(r'^login/$', 'core.views.login_aux', name='login_aux'),
     url(r'^access_info/$', 'core.views.access_info', name='access_info'),
     url(r'^access_info/(?P<username>.+)/$', 'core.views.access_info', name='access_info'),
+    url(r'^forgot_password/$', 'core.views.forgot_password', name='forgot_password'),
     url(r'^admin/', include(admin.site.urls)),
 )

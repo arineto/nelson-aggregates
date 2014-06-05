@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
+from random import randint
 from core.forms import *
 from core.models import *
 
@@ -191,6 +193,25 @@ def access_info(request, username=None):
 
 	users = User.objects.all()
 	return render(request, 'access_info.html', {'access_info':True,'info':info, 'users':users})
+
+
+def forgot_password(request):
+	answer = None
+	if request.method == "POST":
+		email = request.POST.get("email")
+		try:
+			user = User.objects.get(email=email)
+			new_password = randint(100000, 999999)
+			message = "Hello, \nThis is an answer to password recovery. Please change your password for security reasons.\nNew Password: "+str(new_password)
+			email = EmailMessage('Nelson Aggregate - Zonning', message, to=[email])
+			email.send()
+			user.set_password(new_password)
+			user.save()
+			answer = "The password was sent to you email."
+		except:
+			answer = "There are no accounts registered in this email."
+
+	return render(request, 'login.html', {'forgot_password':True, 'answer':answer})
 
 
 def filter_maps(filter_value):

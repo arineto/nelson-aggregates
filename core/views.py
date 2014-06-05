@@ -196,11 +196,7 @@ def access_info(request, username=None):
 def filter_maps(filter_value):
 	if filter_value=="burlington" or filter_value=='waynco' or filter_value=='lincoln' or filter_value=='uhthoff' or filter_value=='oneida' or filter_value=='lafarge':
 		prices = Price.objects.filter(quarry__icontains=QUARRY_NAMES[filter_value])
-		polygons = []
-		for polygon in Polygon.objects.all():
-			for price in prices:
-				if price in polygon.prices.all():
-					polygons += [polygon]
+		polygons = Polygon.objects.filter(prices__in=prices)
 	else:
 		polygons = Polygon.objects.filter(color__icontains=FILTER_VALUES[filter_value])
 	return polygons

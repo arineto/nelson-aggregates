@@ -1,8 +1,10 @@
-{% if add_quarry or edit_quarry %}
+{% if add_quarry or edit_quarry or change_password %}
   <form id="draw_maps_box" class="jumbotron" method="POST" action="">
     {% csrf_token %}
     {% if edit_quarry %}
       <h4>Editing Quarry - Zone {{ polygon.title }}</h4>
+    {% elif change_password %}
+      <h4>Change Password</h4>
     {% else %}
       <h4>Adding Quarry - Zone {{ polygon.title }}</h4>
     {% endif %}

@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
+from django.contrib.auth.forms import AdminPasswordChangeForm
 from random import randint
 from core.forms import *
 from core.models import *
@@ -212,6 +213,24 @@ def forgot_password(request):
 			answer = "There are no accounts registered in this email."
 
 	return render(request, 'login.html', {'forgot_password':True, 'answer':answer})
+
+
+@login_required
+def change_password(request):
+	error = None
+	polygons = Polygon.objects.all()
+	quarries = Quarry.objects.all()
+	if request.method == 'POST':
+		form = ChangePasswordForm(request.POST)
+		if not request.user.check_password(request.POST.get('old_password')):
+			error = "Wrong old password"
+		else:
+			if form.is_valid():
+				request.user.set_password(request.POST.get('password1'))
+				request.user.save()
+	else:
+		form = ChangePasswordForm()
+	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'change_password':True, 'form':form, 'error':error})
 
 
 def filter_maps(filter_value):

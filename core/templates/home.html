@@ -13,7 +13,7 @@
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
   
-  {% if user.is_superuser and not add_quarry and not edit_quarry %}
+  {% if user.is_superuser and not add_quarry and not edit_quarry and not change_password %}
     <script type="text/javascript" src="{{ STATIC_URL }}js/drawing_maps.js"></script>
   {% endif %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/creating_polygons.js"></script>
@@ -87,7 +87,7 @@
     var polygon = null;
 
     function initialize() {
-      {% if not edit and user.is_superuser and not add_quarry and not edit_quarry %}
+      {% if not edit and user.is_superuser and not add_quarry and not edit_quarry and not change_password %}
         document.getElementById("end_drawing").disabled = true;
       {% endif %}
 

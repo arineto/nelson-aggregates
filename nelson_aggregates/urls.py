@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, include, url
-
 from django.contrib import admin
 admin.autodiscover()
 
@@ -18,5 +17,6 @@ urlpatterns = patterns('',
     url(r'^access_info/$', 'core.views.access_info', name='access_info'),
     url(r'^access_info/(?P<username>.+)/$', 'core.views.access_info', name='access_info'),
     url(r'^forgot_password/$', 'core.views.forgot_password', name='forgot_password'),
+    url(r'^change_password/$', 'core.views.change_password', name='change_password'),
     url(r'^admin/', include(admin.site.urls)),
 )

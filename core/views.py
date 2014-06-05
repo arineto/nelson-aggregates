@@ -63,10 +63,10 @@ def save_map(request, map_id=None):
 	if request.method == 'POST':
 		if map_id:
 			instance = Polygon.objects.get(id=map_id)
+			form = PolygonEditForm(request.POST, instance=instance)
 		else:
-			instance = None
-		
-		form = PolygonForm(request.POST, instance=instance)
+			form = PolygonForm(request.POST)
+
 		if form.is_valid():
 			form.save()
 		else:

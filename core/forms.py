@@ -6,6 +6,12 @@ class PolygonForm(ModelForm):
 		model = Polygon
 
 
+class PolygonEditForm(ModelForm):
+	class Meta:
+		model = Polygon
+		exclude = ['prices']
+
+
 class QuarryForm(ModelForm):
 	class Meta:
 		model = Price

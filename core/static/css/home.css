@@ -13,11 +13,13 @@ body {
 	height:50px;
 }
 
-@media (min-width: 768px){
+@media (min-width: 991px){
 	.my_search{
 		width: 500px !important;
 	}
 }
+
+
 
 @media (max-width: 768px){
 	.my_search div input{
@@ -145,4 +147,16 @@ body {
 
 .filter_color_box img{
 	height: 20px;
+}
+
+@media (min-width: 768px) and (max-width: 991px){
+	.my_search{
+		width: 300px !important;
+	}
+	.my_search div button{
+		width: 30% !important;
+	}
+	.my_search div input{
+		width: 70% !important;
+	}
 }

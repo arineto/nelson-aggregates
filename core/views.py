@@ -32,6 +32,15 @@ FILTER_VALUES = {
 	"Waterloo / Cambridge":"941100"
 }
 
+QUARRY_NAMES = {
+	"burlington":1,
+	"waynco":2,
+	"uhthoff":3,
+	"oneida":4,
+	"lincoln":5,
+	"lafarge":6
+}
+
 
 def home(request, filter_value=None):
 	if not request.user.is_authenticated():
@@ -40,7 +49,7 @@ def home(request, filter_value=None):
 	polygons = Polygon.objects.all()
 	
 	if filter_value is not None:
-		polygons = Polygon.objects.filter(color__icontains=FILTER_VALUES[filter_value])
+		polygons = filter_maps(filter_value)
 
 	try:
 		if request.session['error']:
@@ -184,5 +193,15 @@ def access_info(request, username=None):
 	return render(request, 'access_info.html', {'access_info':True,'info':info, 'users':users})
 
 
-
+def filter_maps(filter_value):
+	if filter_value=="burlington" or filter_value=='waynco' or filter_value=='lincoln' or filter_value=='uhthoff' or filter_value=='oneida' or filter_value=='lafarge':
+		prices = Price.objects.filter(quarry__icontains=QUARRY_NAMES[filter_value])
+		polygons = []
+		for polygon in Polygon.objects.all():
+			for price in prices:
+				if price in polygon.prices.all():
+					polygons += [polygon]
+	else:
+		polygons = Polygon.objects.filter(color__icontains=FILTER_VALUES[filter_value])
+	return polygons
 

@@ -23,8 +23,63 @@
             </div>
           </div>
         </li>
+
+        <!-- Quarries Filter -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quarries<b class="caret"></b></a>
+          <ul class="dropdown-menu" id="filters_drop">
+            <li>
+              <a href="/filter/waynco/">
+                <div class="filter_line">
+                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Waynco Limited.png"></span>
+                  <span>Waynco Limited</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="/filter/oneida/">
+                <div class="filter_line">
+                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Oneida Quarry.png"></span>
+                  <span>Oneida Quarry</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="/filter/uhthoff/">
+                <div class="filter_line">
+                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Uhthoff Quarry.png"></span>
+                  <span>Uhthoff Quarry</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="/filter/lincoln/">
+                <div class="filter_line">
+                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Lincoln Quarry.png"></span>
+                  <span>Lincoln Quarry</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="/filter/burlington/">
+                <div class="filter_line">
+                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Burlington Quarry.png"></span>
+                  <span>Burlington Quarry</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="/filter/lafarge/">
+                <div class="filter_line">
+                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Lafarge.png"></span>
+                  <span>Lafarge</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </li>
         
-        <!-- Filters Box -->
+        <!-- Areas Filter -->
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Areas<b class="caret"></b></a>
           <ul class="dropdown-menu" id="filters_drop">
@@ -62,6 +117,7 @@
         </li>
         {% endif %}
 
+        <!-- Quarries PDFs -->
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Price List<b class="caret"></b></a>
           <ul class="dropdown-menu" id="filters_drop">

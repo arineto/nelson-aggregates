@@ -227,7 +227,7 @@ def change_password(request):
 			if form.is_valid():
 				request.user.set_password(request.POST.get('password1'))
 				request.user.save()
-				return redirec('/')
+				return redirect('/')
 	else:
 		form = ChangePasswordForm()
 	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'change_password':True, 'form':form, 'error':error})

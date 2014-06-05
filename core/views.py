@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
-from django.contrib.auth.forms import AdminPasswordChangeForm
 from random import randint
 from core.forms import *
 from core.models import *
@@ -228,6 +227,7 @@ def change_password(request):
 			if form.is_valid():
 				request.user.set_password(request.POST.get('password1'))
 				request.user.save()
+				return redirec('/')
 	else:
 		form = ChangePasswordForm()
 	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'change_password':True, 'form':form, 'error':error})

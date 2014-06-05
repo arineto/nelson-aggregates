@@ -19,8 +19,6 @@ body {
 	}
 }
 
-
-
 @media (max-width: 768px){
 	.my_search div input{
 		vertical-align: middle !important;
@@ -158,5 +156,11 @@ body {
 	}
 	.my_search div input{
 		width: 70% !important;
+	}
+}
+
+@media (min-width: 991px) and (max-width: 1200px){
+	.my_search{
+		width: 400px !important;
 	}
 }

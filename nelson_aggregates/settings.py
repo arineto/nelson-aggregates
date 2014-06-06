@@ -92,8 +92,8 @@ USE_TZ = True
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'arineto30@gmail.com'
-EMAIL_HOST_PASSWORD = 'ari040192'
+EMAIL_HOST_USER = 'support@p15media.com'
+EMAIL_HOST_PASSWORD = '1nteractive'
 EMAIL_PORT = 587
 
 

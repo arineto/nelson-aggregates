@@ -7,7 +7,7 @@
 		<p>{{ quarry.get_quarry_display }}{% if user.is_superuser %} (<a href='/edit_quarry/{{ quarry.id }}/'>Edit</a> | <a href='/remove_quarry/{{ quarry.id }}/'>Remove</a>){% endif %}</p>
 		<ul>
 			{% if quarry.tri_axel %}
-				<li>Tri-axel: $ {{ quarry.tri_axel }}/ton</li>
+				<li>Tri Axle: $ {{ quarry.tri_axel }}/ton</li>
 			{% endif %}
 			{% if quarry.tractor_trailer %}
 				<li>Tractor Trailer: $ {{ quarry.tractor_trailer }}/ton</li>

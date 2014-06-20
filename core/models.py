@@ -40,7 +40,7 @@ class Quarry(models.Model):
 	sales = models.CharField(max_length=50)
 	latitude = models.CharField(max_length=50)
 	longitude = models.CharField(max_length=50)
-	pin = models.FileField(upload_to="quarries_pins/", verbose_name="Pin")
+	pin = models.FileField(upload_to="quarries_pins/", null=True, blank=True, verbose_name="Pin")
 
 	def __unicode__(self):
 		return self.name

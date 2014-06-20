@@ -26,7 +26,7 @@ class Migration(SchemaMigration):
 
         # Adding field 'Quarry.pin'
         db.add_column(u'core_quarry', 'pin',
-                      self.gf('django.db.models.fields.files.FileField')(default=None, max_length=100),
+                      self.gf('django.db.models.fields.files.FileField')(max_length=100, null=True, blank=True),
                       keep_default=False)
 
 
@@ -123,7 +123,7 @@ class Migration(SchemaMigration):
             'mailing_address': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'office': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
-            'pin': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
+            'pin': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'sales': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'toll': ('django.db.models.fields.CharField', [], {'max_length': '15'})
         }

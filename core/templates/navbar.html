@@ -40,7 +40,7 @@
               <li>
                 <a href="/filter/{{ quarry.name }}/">
                   <div class="filter_line">
-                    <span class="filter_color_box"><img src="{{ quarry.pin.url }}"></span>
+                    <span class="filter_color_box"><img src="{% if quarry.pin %}{{ quarry.pin.url }}{% endif %}"></span>
                     <span>{{ quarry.name }}</span>
                   </div>
                 </a>
@@ -93,7 +93,7 @@
           <ul class="dropdown-menu" id="filters_drop">
             {% for pdf in pdfs %}
             <li>
-              <a href="{{ pdf.pdf.url }}" target="_blank">
+              <a href="{% if pdf.pdf %}{{ pdf.pdf.url }}{% endif %}" target="_blank">
                 <span>{{ pdf.name }}</span>
               </a>
             </li>

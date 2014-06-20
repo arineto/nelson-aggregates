@@ -90,7 +90,7 @@
       
       {% for quarry in quarries %}
         content = "<div class='box_content'> <img class='my_logo2' src='{{ STATIC_URL }}img/nelson_logo.png'> <h4 class='box_title'>{{ quarry.name }}</h4> <p><b>Delivery Address:</b> {{ quarry.delivery_address }}</p> <p><b>Mailing Address:</b> {{ quarry.mailing_address }}</p> <p><b>Contact Information:</b></p> <ul> <li>Office: {{ quarry.office }}</li> <li>Toll: {{ quarry.toll }}</li> <li>Fax: {{ quarry.fax }}</li> <li>Sales: {{ quarry.sales }}</li> </ul> </div>";
-        icon = "{{ quarry.pin.url }}";
+        icon = "{% if quarry.pin %}{{ quarry.pin.url }}{% endif %}";
         create_marker("{{ quarry.name }}", icon, "{{ quarry.latitude }}", "{{ quarry.longitude }}", content);
       {% endfor %}
     }

@@ -8,18 +8,37 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Areas'
-        db.create_table(u'core_areas', (
+        # Adding model 'Area'
+        db.create_table(u'core_area', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('area', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('color', self.gf('django.db.models.fields.CharField')(max_length=7)),
         ))
-        db.send_create_signal(u'core', ['Areas'])
+        db.send_create_signal(u'core', ['Area'])
+
+        # Adding model 'PDF'
+        db.create_table(u'core_pdf', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('pdf', self.gf('django.db.models.fields.files.FileField')(max_length=100)),
+        ))
+        db.send_create_signal(u'core', ['PDF'])
+
+        # Adding field 'Quarry.pin'
+        db.add_column(u'core_quarry', 'pin',
+                      self.gf('django.db.models.fields.files.FileField')(default=None, max_length=100),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'Areas'
-        db.delete_table(u'core_areas')
+        # Deleting model 'Area'
+        db.delete_table(u'core_area')
+
+        # Deleting model 'PDF'
+        db.delete_table(u'core_pdf')
+
+        # Deleting field 'Quarry.pin'
+        db.delete_column(u'core_quarry', 'pin')
 
 
     models = {
@@ -65,8 +84,8 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
         },
-        u'core.areas': {
-            'Meta': {'object_name': 'Areas'},
+        u'core.area': {
+            'Meta': {'object_name': 'Area'},
             'area': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'color': ('django.db.models.fields.CharField', [], {'max_length': '7'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
@@ -104,7 +123,7 @@ class Migration(SchemaMigration):
             'mailing_address': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'office': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
-            'pin': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'pin': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
             'sales': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'toll': ('django.db.models.fields.CharField', [], {'max_length': '15'})
         }

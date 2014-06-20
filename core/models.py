@@ -40,6 +40,7 @@ class Quarry(models.Model):
 	sales = models.CharField(max_length=50)
 	latitude = models.CharField(max_length=50)
 	longitude = models.CharField(max_length=50)
+	pin = models.FileField(upload_to="quarries_pins/", null=True, blank=True, verbose_name="Pin")
 
 	def __unicode__(self):
 		return self.name
@@ -51,3 +52,8 @@ class AccessInfo(models.Model):
 
 	def __unicode__(self):
 		return self.user.username
+
+
+class PDF(models.Model):
+	name = models.CharField(max_length=50, verbose_name="PDF's Name")
+	pdf = models.FileField(upload_to="pdfs/", verbose_name="Pin")

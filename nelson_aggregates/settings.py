@@ -11,12 +11,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'core/static'),
-)
 
 ADMINS = (
         ('Jose Neto', 'arineto30@gmail.com')
@@ -88,6 +82,15 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'core/static'),
+)
+MEDIA_ROOT = BASE_DIR+'/core/media/'
+MEDIA_URL = '/media/'
 
 
 EMAIL_USE_TLS = True

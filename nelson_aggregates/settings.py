@@ -26,7 +26,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECRET_KEY = 'hlzr9sxm6@39!*v6p7312*d2$qine--q+_s8r3uffg9ndbew%!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -108,4 +108,16 @@ try:
     from local_settings import *
 except ImportError:
     pass
+
+
+#Amazon Settings:
+if not DEBUG:
+    STATIC_URL = 'http://yumbrands.s3.amazonaws.com/'
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    AWS_S3_SECURE_URLS = False
+    AWS_QUERYSTRING_AUTH = False
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 

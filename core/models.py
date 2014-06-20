@@ -57,3 +57,8 @@ class AccessInfo(models.Model):
 class PDF(models.Model):
 	name = models.CharField(max_length=50, verbose_name="PDF's Name")
 	pdf = models.FileField(upload_to="pdfs/", verbose_name="Pin")
+
+
+class Area(models.Model):
+	area = models.CharField(max_length=50, verbose_name="Area")
+	color = models.CharField(max_length=7, verbose_name="Color (Hexadecimal)")

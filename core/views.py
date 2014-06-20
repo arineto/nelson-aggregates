@@ -34,15 +34,6 @@ FILTER_VALUES = {
 	"Waterloo / Cambridge":"941100"
 }
 
-QUARRY_NAMES = {
-	"burlington":1,
-	"waynco":2,
-	"uhthoff":3,
-	"oneida":4,
-	"lincoln":5,
-	"lafarge":6
-}
-
 
 def home(request, filter_value=None):
 	if not request.user.is_authenticated():
@@ -63,7 +54,8 @@ def home(request, filter_value=None):
 		error = ""
 
 	quarries = Quarry.objects.all()
-	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'error':error})
+	pdfs = PDF.objects.all()
+	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'pdfs':pdfs, 'error':error})
 
 
 @login_required
@@ -103,7 +95,8 @@ def edit_map(request, map_id):
 	polygons = Polygon.objects.all()
 	polygon = Polygon.objects.get(id=map_id)
 	quarries = Quarry.objects.all()
-	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'edit':map_id, 'polygon':polygon})
+	pdfs = PDF.objects.all()
+	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'pdfs':pdfs, 'edit':map_id, 'polygon':polygon})
 
 
 @login_required
@@ -114,6 +107,7 @@ def add_quarry(request, map_id):
 	polygons = Polygon.objects.all()
 	polygon = Polygon.objects.get(id=map_id)
 	quarries = Quarry.objects.all()
+	pdfs = PDF.objects.all()
 
 	if request.method == 'POST':
 		form = QuarryForm(request.POST)
@@ -125,7 +119,7 @@ def add_quarry(request, map_id):
 	else:
 		form = QuarryForm()
 
-	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'add_quarry':map_id, 'polygon':polygon, 'form':form})
+	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'pdfs':pdfs, 'add_quarry':map_id, 'polygon':polygon, 'form':form})
 
 
 @login_required
@@ -145,7 +139,8 @@ def edit_quarry(request, quarry_id):
 	polygons = Polygon.objects.all()
 	polygon = Polygon.objects.filter(prices=instance)[0]
 	quarries = Quarry.objects.all()
-	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'edit_quarry':polygon.id, 'polygon':polygon, 'form':form})
+	pdfs = PDF.objects.all()
+	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'pdfs':pdfs, 'edit_quarry':polygon.id, 'polygon':polygon, 'form':form})
 
 
 @login_required
@@ -192,7 +187,8 @@ def access_info(request, username=None):
 		info = AccessInfo.objects.all().order_by('-date')
 
 	users = User.objects.all()
-	return render(request, 'access_info.html', {'access_info':True,'info':info, 'users':users})
+	pdfs = PDF.objects.all()
+	return render(request, 'access_info.html', {'access_info':True, 'info':info, 'users':users, 'pdfs':pdfs})
 
 
 def forgot_password(request):
@@ -219,6 +215,7 @@ def change_password(request):
 	error = None
 	polygons = Polygon.objects.all()
 	quarries = Quarry.objects.all()
+	pdfs = PDF.objects.all()
 	if request.method == 'POST':
 		form = ChangePasswordForm(request.POST)
 		if not request.user.check_password(request.POST.get('old_password')):
@@ -230,12 +227,13 @@ def change_password(request):
 				return redirect('/')
 	else:
 		form = ChangePasswordForm()
-	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'change_password':True, 'form':form, 'error':error})
+	return render(request, 'home.html', {'polygons':polygons, 'filters':FILTER_VALUES, 'quarries':quarries, 'pdfs':pdfs, 'change_password':True, 'form':form, 'error':error})
 
 
 def filter_maps(filter_value):
-	if filter_value=="burlington" or filter_value=='waynco' or filter_value=='lincoln' or filter_value=='uhthoff' or filter_value=='oneida' or filter_value=='lafarge':
-		prices = Price.objects.filter(quarry__icontains=QUARRY_NAMES[filter_value])
+	quarries = Quarry.objects.filter(name=filter_value)
+	if len(quarries)>0:
+		prices = Price.objects.filter(quarry__in=quarries)
 		polygons = Polygon.objects.filter(prices__in=prices)
 	else:
 		polygons = Polygon.objects.filter(color__icontains=FILTER_VALUES[filter_value])

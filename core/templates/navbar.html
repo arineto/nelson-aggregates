@@ -28,54 +28,16 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quarries<b class="caret"></b></a>
           <ul class="dropdown-menu" id="filters_drop">
-            <li>
-              <a href="/filter/waynco/">
-                <div class="filter_line">
-                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Waynco Limited.png"></span>
-                  <span>Waynco Limited</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="/filter/oneida/">
-                <div class="filter_line">
-                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Oneida Quarry.png"></span>
-                  <span>Oneida Quarry</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="/filter/uhthoff/">
-                <div class="filter_line">
-                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Uhthoff Quarry.png"></span>
-                  <span>Uhthoff Quarry</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="/filter/lincoln/">
-                <div class="filter_line">
-                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Lincoln Quarry.png"></span>
-                  <span>Lincoln Quarry</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="/filter/burlington/">
-                <div class="filter_line">
-                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Burlington Quarry.png"></span>
-                  <span>Burlington Quarry</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="/filter/lafarge/">
-                <div class="filter_line">
-                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Lafarge.png"></span>
-                  <span>Lafarge</span>
-                </div>
-              </a>
-            </li>
+            {% for quarry in quarries %}
+              <li>
+                <a href="/filter/{{ quarry.name }}/">
+                  <div class="filter_line">
+                    <span class="filter_color_box"><img src="{{ quarry.pin.url }}"></span>
+                    <span>{{ quarry.name }}</span>
+                  </div>
+                </a>
+              </li>
+            {% endfor %}
           </ul>
         </li>
         
@@ -121,46 +83,13 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Price List<b class="caret"></b></a>
           <ul class="dropdown-menu" id="filters_drop">
+            {% for pdf in pdfs %}
             <li>
-              <a href="{{ STATIC_URL }}pdf/waynco.pdf" target="_blank">
-                <div class="filter_line">
-                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Waynco Limited.png"></span>
-                  <span>Waynco Limited</span>
-                </div>
+              <a href="{{ pdf.pdf.url }}" target="_blank">
+                <span>{{ pdf.name }}</span>
               </a>
             </li>
-            <li>
-              <a href="{{ STATIC_URL }}pdf/oneida.pdf" target="_blank">
-                <div class="filter_line">
-                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Oneida Quarry.png"></span>
-                  <span>Oneida Quarry</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="{{ STATIC_URL }}pdf/uhthoff.pdf" target="_blank">
-                <div class="filter_line">
-                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Uhthoff Quarry.png"></span>
-                  <span>Uhthoff Quarry</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="{{ STATIC_URL }}pdf/lincoln.pdf" target="_blank">
-                <div class="filter_line">
-                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Lincoln Quarry.png"></span>
-                  <span>Lincoln Quarry</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="{{ STATIC_URL }}pdf/burlington.pdf" target="_blank">
-                <div class="filter_line">
-                  <span class="filter_color_box"><img src="{{ STATIC_URL }}img/icons/Burlington Quarry.png"></span>
-                  <span>Burlington Quarry</span>
-                </div>
-              </a>
-            </li>
+            {% endfor %}
           </ul>
         </li>
 

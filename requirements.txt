@@ -7,3 +7,5 @@ pystache==0.5.4
 static==1.0.2
 wsgiref==0.1.2
 psycopg2==2.5.1
+django-storages==1.1.8
+boto==2.29.1

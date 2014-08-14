@@ -62,3 +62,7 @@ class PDF(models.Model):
 class Area(models.Model):
 	area = models.CharField(max_length=50, verbose_name="Area")
 	color = models.CharField(max_length=7, verbose_name="Color (Hexadecimal)")
+
+
+class LoginPicture(models.Model):
+	picture = models.FileField(upload_to="login_pictures/")
